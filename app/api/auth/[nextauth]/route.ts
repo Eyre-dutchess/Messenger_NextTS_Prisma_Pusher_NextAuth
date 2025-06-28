@@ -37,6 +37,13 @@ export const authOptions :AuthOptions = {
                 if(!user || !user?.hashedPassword){
                     throw new Error("can't find user")
                 }
+                const isCorrect = bcrypt.compare(
+                    user.hashedPassword,
+                    credentials.password
+                )
+                if(!isCorrect){
+                    throw new Error("wrong password")
+                }
 
                 return user
             }
